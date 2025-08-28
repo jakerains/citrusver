@@ -1,0 +1,16 @@
+{
+  "templates": {
+    "feat": "feat: {{message}}\n\nv{{version}}",
+    "fix": "fix: {{message}}\n\nv{{version}}",
+    "docs": "docs: {{message}}\n\nv{{version}}",
+    "style": "style: {{message}}\n\nv{{version}}",
+    "refactor": "refactor: {{message}}\n\nv{{version}}",
+    "perf": "perf: {{message}}\n\nv{{version}}",
+    "test": "test: {{message}}\n\nv{{version}}",
+    "build": "build: {{message}}\n\nv{{version}}",
+    "ci": "ci: {{message}}\n\nv{{version}}",
+    "chore": "chore: {{message}}\n\nv{{version}}",
+    "revert": "revert: {{message}}\n\nv{{version}}"
+  },
+  "breaking": "BREAKING CHANGE: {{message}}\n\nv{{version}}"
+}

@@ -1,0 +1,8 @@
+{
+  "messageStyle": "interactive",
+  "autoTag": true,
+  "autoPush": false,
+  "preVersion": "npm test",
+  "postVersion": "npm run build",
+  "commitTemplate": null
+}

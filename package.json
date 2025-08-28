@@ -1,0 +1,51 @@
+{
+  "name": "citrusver",
+  "version": "1.0.0",
+  "description": "Interactive version bump utility with smart commit messages and git tagging",
+  "main": "lib/version-bump.js",
+  "bin": {
+    "citrusver": "./bin/citrusver.js",
+    "citrusver-patch": "./bin/citrusver-patch.js",
+    "citrusver-minor": "./bin/citrusver-minor.js",
+    "citrusver-major": "./bin/citrusver-major.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0",
+    "prepublishOnly": "echo \"Ready to publish CitrusVer!\"",
+    "version:patch": "./bin/citrusver-patch.js",
+    "version:minor": "./bin/citrusver-minor.js",
+    "version:major": "./bin/citrusver-major.js"
+  },
+  "keywords": [
+    "version",
+    "bump",
+    "semver",
+    "git",
+    "npm",
+    "cli",
+    "interactive",
+    "commit",
+    "tag",
+    "release"
+  ],
+  "author": "Jake Rains <jakerains@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakerains/citrusver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jakerains/citrusver/issues"
+  },
+  "homepage": "https://github.com/jakerains/citrusver#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "templates/",
+    "README.md",
+    "LICENSE"
+  ]
+}
