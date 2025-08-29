@@ -81,8 +81,7 @@ citrusver major
 When you run CitrusVer, it prompts for an optional commit message:
 
 ```
-💬 Enter a commit message for v1.0.1
-   (or press Enter to use version only): Fixed critical bug in auth system
+› Commit message for v1.0.1  (Enter to skip · Esc cancels): Fixed critical bug in auth system
 ```
 
 Result: 
@@ -167,29 +166,35 @@ git push origin main --tags
 
 ## 🎨 Visual Experience
 
-CitrusVer provides beautiful visual feedback:
+CitrusVer provides beautiful visual feedback with a clean, modern CLI:
 
 ```
-╔═══════════════════════════════════════╗
-║  CitrusVer ━ Interactive Versioning   ║
-╚═══════════════════════════════════════╝
+╭──────────────────────────────────────────────╮
+│  🍋 CitrusVer · MINOR RELEASE                │
+├──────────────────────────────────────────────┤
+│  Current   1.0.0                             │
+│  Next      1.1.0                             │
+│                                              │
+│  Fresh-squeezed semver for your repo         │
+╰──────────────────────────────────────────────╯
 
-╭─────────────────────────╮
-│  MINOR (Feature)        │
-│  1.0.0 → 1.1.0         │
-╰─────────────────────────╯
+› Commit message for v1.1.0  (Enter to skip · Esc cancels)
 
 🍋 Bumping minor version...
 📦 Staging all changes...
-💬 Enter a commit message for v1.1.0
 💾 Creating version commit...
 🏷️  Creating version tag...
 
-╔═══════════════════════════════════════╗
-║         ✨ SUCCESS! ✨                 ║
-║                                        ║
-║   Version bumped to v1.1.0            ║
-╚═══════════════════════════════════════╝
+✅ VERSION BUMPED!
+
+New Version: v1.1.0
+All changes have been committed
+Git tag has been created
+
+Next Step:
+git push origin HEAD --tags
+
+🍋 Fresh release squeezed! 🍋
 ```
 
 ## 🔧 Advanced Features
