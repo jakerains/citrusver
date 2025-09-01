@@ -2,6 +2,8 @@
 
 const CitrusVer = require('../lib/version-bump');
 const { lemonArt, colors, citrusHeader } = require('../lib/ascii-art');
+const UpdateChecker = require('../lib/update-check');
+const pkg = require('../package.json');
 
 function showHelp() {
   console.log(lemonArt);
@@ -32,13 +34,26 @@ ${colors.gray}Learn more: https://github.com/jakerains/citrusver${colors.reset}
 }
 
 function showVersion() {
-  const pkg = require('../package.json');
   console.log(`CitrusVer v${pkg.version}`);
+}
+
+async function checkForUpdates() {
+  const checker = new UpdateChecker('citrusver', pkg.version);
+  const update = await checker.check();
+  
+  if (update) {
+    console.log(checker.formatUpdateMessage(update.latestVersion));
+  }
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const command = args[0];
+
+  // Check for updates (fast, uses cache)
+  await checkForUpdates().catch(() => {
+    // Silently ignore any errors
+  });
 
   // Handle help and version flags
   if (!command || command === '-h' || command === '--help') {

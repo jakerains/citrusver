@@ -1,6 +1,6 @@
 {
   "name": "citrusver",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Interactive version bump utility with smart commit messages and git tagging",
   "main": "lib/version-bump.js",
   "bin": {
