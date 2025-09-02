@@ -1,8 +1,8 @@
 {
   "operation": "version-bump",
-  "versionType": "minor",
+  "versionType": "patch",
   "options": {
-    "command": "minor",
+    "command": "patch",
     "dryRun": false,
     "noConfirm": false,
     "changelog": false,
@@ -12,23 +12,23 @@
     "stash": false,
     "selective": false
   },
-  "timestamp": "2025-09-02T23:01:12.517Z",
+  "timestamp": "2025-09-02T23:05:03.462Z",
   "git": {
     "branch": "main",
-    "commit": "9641fa1dc72a554b649cb200e057bffc260491c1",
-    "uncommittedChanges": "M .citrusver/last-state.json\n M bin/citrusver.js\n M lib/ascii-art.js\n?? .citrusver/backups/package-root-1756847254580.json",
+    "commit": "d148a761aeec7fbd2391451c6e7eee0293e5bd2f",
+    "uncommittedChanges": "M .citrusver/last-state.json\n M bin/citrusver.js\n M lib/update-check.js\n?? .citrusver/backups/package-root-1756854073004.json",
     "tags": [
+      "v2.1.0",
       "v2.0.1",
       "v2.0.0",
       "v1.2.0",
-      "v1.1.1",
-      "v1.1.0"
+      "v1.1.1"
     ]
   },
   "backups": [
     {
       "originalPath": "/Users/jakerains/Projects/citrusver/package.json",
-      "backupPath": "/Users/jakerains/Projects/citrusver/.citrusver/backups/package-root-1756854072516.json",
+      "backupPath": "/Users/jakerains/Projects/citrusver/.citrusver/backups/package-root-1756854303462.json",
       "type": "root"
     }
   ]

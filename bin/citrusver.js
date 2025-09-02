@@ -49,7 +49,7 @@ async function checkForUpdates() {
   const checker = new UpdateChecker('citrusver', pkg.version);
   const update = await checker.check();
   
-  if (update) {
+  if (update && update.updateAvailable) {
     console.log(checker.formatUpdateMessage(update.latestVersion));
   }
 }
