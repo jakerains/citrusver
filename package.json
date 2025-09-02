@@ -1,7 +1,7 @@
 {
   "name": "citrusver",
-  "version": "1.2.0",
-  "description": "Interactive version bump utility with smart commit messages and git tagging",
+  "version": "2.0.0",
+  "description": "Next-generation version management for Node.js - beautiful CLI, automatic changelogs, branch protection, monorepo support, and more. Zero dependencies.",
   "main": "lib/version-bump.js",
   "bin": {
     "citrusver": "./bin/citrusver.js",
@@ -26,7 +26,19 @@
     "interactive",
     "commit",
     "tag",
-    "release"
+    "release",
+    "changelog",
+    "conventional-commits",
+    "monorepo",
+    "workspace",
+    "dry-run",
+    "branch-protection",
+    "rollback",
+    "plugin",
+    "zero-dependencies",
+    "release-management",
+    "automation",
+    "prerelease"
   ],
   "author": "Jake Rains <jakerains@gmail.com>",
   "license": "MIT",
