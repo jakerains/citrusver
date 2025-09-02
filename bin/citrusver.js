@@ -7,7 +7,7 @@ const pkg = require('../package.json');
 
 function showHelp() {
   console.log(lemonArt);
-  console.log(citrusHeader);
+  console.log(citrusHeader(pkg.version));
   console.log(`
 ${colors.brightYellow}Usage:${colors.reset}
   ${colors.cyan}citrusver${colors.reset} ${colors.green}<command>${colors.reset} ${colors.gray}[options]${colors.reset}
