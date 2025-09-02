@@ -1,0 +1,34 @@
+{
+  "operation": "version-bump",
+  "versionType": "patch",
+  "options": {
+    "command": "patch",
+    "dryRun": false,
+    "noConfirm": false,
+    "changelog": false,
+    "preid": null,
+    "force": false,
+    "template": null,
+    "stash": false,
+    "selective": false
+  },
+  "timestamp": "2025-09-02T21:07:33.994Z",
+  "git": {
+    "branch": "main",
+    "commit": "7eaa78f967ce1ed4170fee900fd4e8bfd3c61cae",
+    "uncommittedChanges": "M lib/ascii-art.js\n M lib/utils/branch-protection.js\n?? .citrusver/",
+    "tags": [
+      "v2.0.0",
+      "v1.2.0",
+      "v1.1.1",
+      "v1.1.0"
+    ]
+  },
+  "backups": [
+    {
+      "originalPath": "/Users/jakerains/Projects/citrusver/package.json",
+      "backupPath": "/Users/jakerains/Projects/citrusver/.citrusver/backups/package-root-1756847253994.json",
+      "type": "root"
+    }
+  ]
+}
