@@ -19,7 +19,13 @@ ${colors.brightYellow}Commands:${colors.reset}
   ${colors.green}prerelease${colors.reset}  Create prerelease version ${colors.gray}(1.0.0 → 1.0.1-alpha.0)${colors.reset}
   ${colors.green}init${colors.reset}        Initialize CitrusVer config
 
-${colors.brightYellow}Options:${colors.reset}
+${colors.brightYellow}Git Options:${colors.reset}
+  ${colors.green}--commit${colors.reset}           Create git commit with version changes
+  ${colors.green}--tag${colors.reset}              Create git tag (implies --commit)
+  ${colors.green}--push${colors.reset}             Push to remote (implies --commit)
+  ${colors.green}--full${colors.reset}             Complete workflow with all features
+
+${colors.brightYellow}Other Options:${colors.reset}
   ${colors.green}-h, --help${colors.reset}         Show this help message
   ${colors.green}-v, --version${colors.reset}      Show CitrusVer version
   ${colors.green}--dry-run${colors.reset}          Preview changes without executing
@@ -27,16 +33,19 @@ ${colors.brightYellow}Options:${colors.reset}
   ${colors.green}--changelog${colors.reset}        Generate CHANGELOG.md
   ${colors.green}--preid <id>${colors.reset}       Prerelease identifier (alpha, beta, rc)
   ${colors.green}--force${colors.reset}            Force operation on protected branches
+  ${colors.green}--quiet${colors.reset}            Minimal output
 
 ${colors.brightYellow}Examples:${colors.reset}
-  ${colors.cyan}npx citrusver patch --dry-run${colors.reset}
-  ${colors.cyan}citrusver minor --changelog${colors.reset}
-  ${colors.cyan}citrusver prerelease --preid beta${colors.reset}
-  ${colors.cyan}citrusver init --template conventional${colors.reset}
+  ${colors.cyan}citrusver patch${colors.reset}              ${colors.gray}# Bump version only (no git)${colors.reset}
+  ${colors.cyan}citrusver minor --commit${colors.reset}     ${colors.gray}# Bump + create commit${colors.reset}
+  ${colors.cyan}citrusver major --tag${colors.reset}        ${colors.gray}# Bump + commit + tag${colors.reset}
+  ${colors.cyan}citrusver patch --push${colors.reset}       ${colors.gray}# Bump + commit + push${colors.reset}
+  ${colors.cyan}citrusver minor --full${colors.reset}       ${colors.gray}# Complete workflow${colors.reset}
+  ${colors.cyan}citrusver patch --quiet${colors.reset}      ${colors.gray}# Minimal output${colors.reset}
 
 ${colors.brightYellow}Configuration:${colors.reset}
   Create a ${colors.green}.citrusver.json${colors.reset} file in your project root for custom settings.
-  
+
 ${colors.gray}Learn more: https://github.com/jakerains/citrusver${colors.reset}
 `);
 }
@@ -64,12 +73,17 @@ function parseArgs(args) {
     force: false,
     template: null,
     stash: false,
-    selective: false
+    selective: false,
+    commit: false,
+    tag: false,
+    push: false,
+    full: false,
+    quiet: false
   };
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
-    
+
     if (arg === '--dry-run') {
       options.dryRun = true;
     } else if (arg === '--no-confirm') {
@@ -86,6 +100,18 @@ function parseArgs(args) {
       options.stash = true;
     } else if (arg === '--selective') {
       options.selective = true;
+    } else if (arg === '--commit') {
+      options.commit = true;
+    } else if (arg === '--tag') {
+      options.tag = true;
+      options.commit = true; // --tag implies --commit
+    } else if (arg === '--push') {
+      options.push = true;
+      options.commit = true; // --push implies --commit
+    } else if (arg === '--full') {
+      options.full = true;
+    } else if (arg === '--quiet') {
+      options.quiet = true;
     } else if (!arg.startsWith('-') && !options.command) {
       options.command = arg;
     }

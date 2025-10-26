@@ -1,6 +1,33 @@
-# 🍋 CitrusVer v2.0
+# 🍋 CitrusVer v3.0
 
 > Next-generation version management for Node.js with beautiful CLI, comprehensive automation, and zero dependencies.
+
+## 🎉 What's New in v3.0
+
+CitrusVer 3.0 introduces a **fundamental redesign** with a simpler, more predictable default behavior:
+
+### Breaking Changes
+
+**Default Behavior is Now Version-Only**
+- Running `citrusver patch/minor/major` now **only updates package.json**
+- No automatic git commits, tags, or prompts by default
+- Git operations are now **opt-in via flags**
+
+**Why This Change?**
+- More predictable and aligned with user expectations
+- Faster for simple version bumps
+- Better composability with other tools
+- Still maintains all the powerful features when you need them
+
+### New Flag-Based System
+
+Choose your workflow with intuitive flags:
+- `citrusver patch` - Just bump the version (fast & simple)
+- `citrusver patch --commit` - Bump + create commit
+- `citrusver patch --tag` - Bump + commit + tag
+- `citrusver patch --push` - Bump + commit + push
+- `citrusver patch --full` - Complete workflow (v2 behavior)
+- `citrusver patch --quiet` - Minimal output
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/citrusver?style=flat-square&color=yellow" alt="npm version">
@@ -20,15 +47,15 @@
 ## ✨ Features
 
 ### Core Features
+- 🚀 **Simple by Default** - Just bump versions, nothing more (unless you want it)
 - 🎨 **Beautiful CLI** - Colorful ASCII art and clear visual feedback
-- 💬 **Interactive Commits** - Enhanced commit interface with conventional commits support
-- 🏷️ **Auto Git Tags** - Automatically creates version tags
-- 📦 **Smart Staging** - Selective or automatic staging of changes
-- ⚙️ **Configurable** - Extensive configuration via `.citrusver.json`
-- 🪝 **Hooks System** - Pre/post version hooks and plugin support
+- 🎯 **Flag-Based Control** - Choose your workflow with intuitive flags
+- 💬 **Optional Git Operations** - Commit, tag, and push when you need them
+- 🔇 **Quiet Mode** - Minimal output for scripting and automation
+- ⚙️ **Highly Configurable** - Extensive configuration via `.citrusver.json`
 - 🚀 **Zero Dependencies** - Pure Node.js, no bloat
 
-### New in v2.0
+### Advanced Features (with --full flag)
 - 🔍 **Dry Run Mode** - Preview changes without committing
 - 📝 **Changelog Generation** - Automatic CHANGELOG.md updates
 - ✅ **Confirmation Prompts** - Review changes before applying
@@ -41,23 +68,7 @@
 - 🎨 **Interactive Mode** - Select commit types, scopes, breaking changes
 - 🔌 **Plugin System** - Extend functionality with custom plugins
 - 📋 **Config Templates** - Quick setup with predefined configurations
-
-## 🎊 What's New in v2.0
-
-CitrusVer 2.0 is a **complete reimagining** of version management with 12 major enhancements:
-
-- **🔍 Dry Run Mode** - Preview exactly what will happen before committing
-- **📝 Automatic Changelogs** - Generate beautiful CHANGELOG.md from your commits
-- **✅ Smart Confirmations** - Review all changes before applying them
-- **📦 Monorepo Support** - Manage multiple packages effortlessly
-- **🔄 Error Recovery** - Automatic rollback keeps your repo safe
-- **🎯 Conventional Commits** - Full support with interactive type selection
-- **🛡️ Branch Protection** - Prevent accidental releases from wrong branches
-- **🔢 Flexible Versioning** - Date-based, prereleases, custom patterns
-- **📊 NPM Integration** - Check existing versions, auto-publish
-- **🎨 Enhanced UI** - Beautiful prompts for every interaction
-- **🔌 Plugin System** - Extend with custom functionality
-- **📋 Config Templates** - Get started instantly with presets
+- 🪝 **Hooks System** - Pre/post version hooks (with git operation flags)
 
 ## 📦 Installation
 
@@ -91,37 +102,43 @@ npm install -g citrusver
 
 ## 🚀 Quick Start
 
-### 1. Initialize CitrusVer (optional)
+### Basic Usage (Version Only)
 ```bash
-# Interactive setup with templates
-npx citrusver init
+# Just bump the version - fast and simple!
+npx citrusver patch    # 1.0.0 → 1.0.1
+npx citrusver minor    # 1.0.0 → 1.1.0
+npx citrusver major    # 1.0.0 → 2.0.0
 
-# Or use a specific template
-npx citrusver init --template conventional
+# That's it! Only package.json is updated.
 ```
 
-### 2. Bump Your Version
+### With Git Operations
 ```bash
-# Preview changes first (recommended)
+# Bump + create commit
+npx citrusver patch --commit
+
+# Bump + commit + tag
+npx citrusver patch --tag
+
+# Bump + commit + push to remote
+npx citrusver patch --push
+
+# Complete workflow (all features)
+npx citrusver patch --full
+```
+
+### Preview Changes First
+```bash
+# See what will happen without making changes
 npx citrusver patch --dry-run
-
-# Apply the version bump
-npx citrusver patch
-
-# With changelog generation
-npx citrusver minor --changelog
-
-# Create a prerelease
-npx citrusver prerelease --preid beta
+npx citrusver minor --commit --dry-run
 ```
 
-### 3. Push and Publish
+### Quiet Mode for Automation
 ```bash
-# If not using autoPush
-git push origin main --tags
-
-# If npm publishing is configured
-npm publish
+# Minimal output - just the version number
+npx citrusver patch --quiet
+# Output: 1.0.1
 ```
 
 ## 📖 Usage Guide
@@ -132,7 +149,7 @@ npm publish
 # Bump patch version (1.0.0 → 1.0.1)
 citrusver patch
 
-# Bump minor version (1.0.0 → 1.1.0)  
+# Bump minor version (1.0.0 → 1.1.0)
 citrusver minor
 
 # Bump major version (1.0.0 → 2.0.0)
@@ -141,29 +158,59 @@ citrusver major
 
 ### How It Works
 
-1. **Bumps version** in package.json
-2. **Stages ALL changes** (including uncommitted work)
-3. **Prompts for commit message** (optional)
-4. **Creates commit** with message and version
-5. **Creates git tag** (e.g., v1.0.1)
-6. **Ready to push** with `git push origin main --tags`
+**Default Behavior (No Flags):**
+1. Updates `package.json` version
+2. Updates `package-lock.json` version (if exists)
+3. Shows success message
+4. **That's it!** No git operations, no prompts
 
-### Interactive Commit Messages
+**With --commit Flag:**
+1. Updates version files
+2. Prompts for optional commit message
+3. Stages package.json and package-lock.json
+4. Creates git commit
+5. Runs pre/post version hooks (if configured)
 
-When you run CitrusVer, it prompts for an optional commit message:
+**With --tag Flag:**
+1. All --commit operations
+2. Creates annotated git tag (e.g., v1.0.1)
 
+**With --push Flag:**
+1. All --tag operations (if autoTag is true)
+2. Pushes to remote with tags
+
+**With --full Flag:**
+1. All advanced features enabled
+2. Branch protection checks
+3. Changelog generation
+4. Plugin hooks
+5. NPM publishing (if configured)
+
+### Flag Combinations
+
+You can combine flags for custom workflows:
+```bash
+# Version only
+citrusver patch
+
+# Version + commit
+citrusver patch --commit
+
+# Version + commit + tag
+citrusver patch --tag
+
+# Version + commit + push (adds tag if autoTag is true)
+citrusver patch --push
+
+# Everything
+citrusver patch --full
+
+# Any combination with dry-run
+citrusver patch --tag --dry-run
+
+# Any combination in quiet mode
+citrusver patch --commit --quiet
 ```
-› Commit message for v1.0.1  (Enter to skip · Esc cancels): Fixed critical bug in auth system
-```
-
-Result: 
-```
-Fixed critical bug in auth system
-
-v1.0.1
-```
-
-If you just press Enter, the commit message will be the version number only.
 
 ## ⚙️ Configuration
 
@@ -284,21 +331,49 @@ Prevent releases from wrong branches:
 
 ## 🎯 Common Workflows
 
-### Simple Version Bump
+### Quick Version Bump (v3.0 Default)
 ```bash
-# Make your changes
-# When ready to release:
+# Fast and simple - just bump the version
 citrusver patch
-# Press Enter for default message
+# Done! Manual commit later if needed
+```
+
+### Traditional Release Workflow
+```bash
+# Bump version and create release commit
+citrusver minor --tag
+# Add custom message when prompted
 git push origin main --tags
 ```
 
-### Feature Release with Message
+### Automated CI/CD Pipeline
 ```bash
-# After developing feature
-citrusver minor
+# Quiet mode for scripts
+VERSION=$(citrusver patch --quiet)
+echo "Bumped to $VERSION"
+
+# Or with full automation
+citrusver patch --push
+```
+
+### Feature Release with Commit
+```bash
+# Develop your feature...
+# When ready:
+citrusver minor --commit
 # Type: "Add user authentication system"
-git push origin main --tags
+# Commit created automatically
+git push
+```
+
+### Migration from v2.x to v3.0
+```bash
+# v2.x behavior (default created commit + tag)
+# Now use --tag flag for same behavior:
+citrusver patch --tag
+
+# Or use --full for complete v2.x experience:
+citrusver patch --full
 ```
 
 ### CI/CD Integration
@@ -310,17 +385,42 @@ git push origin main --tags
 }
 ```
 
-### Conventional Commits
-```json
-{
-  "commitTemplate": "chore(release): {{message}}\n\nv{{version}}"
-}
+Then use:
+```bash
+citrusver patch --commit  # Hooks run with git operation flags
 ```
 
 ## 🎨 Visual Experience
 
 CitrusVer provides beautiful visual feedback with a clean, modern CLI:
 
+### Default Behavior (Version Only)
+```
+╭──────────────────────────────────────────────╮
+│  🍋 CitrusVer · PATCH RELEASE                │
+├──────────────────────────────────────────────┤
+│  Current   1.0.0                             │
+│  Next      1.0.1                             │
+│                                              │
+│  Fresh-squeezed semver for your repo         │
+╰──────────────────────────────────────────────╯
+
+🍋 Bumping patch version...
+
+========================================
+      ✅ VERSION BUMPED! ✅
+========================================
+
+     New Version: v1.0.1
+
+     package.json has been updated
+
+----------------------------------------
+
+     🍋 Fresh release squeezed! 🍋
+```
+
+### With --tag Flag (Commit + Tag)
 ```
 ╭──────────────────────────────────────────────╮
 │  🍋 CitrusVer · MINOR RELEASE                │
@@ -331,23 +431,34 @@ CitrusVer provides beautiful visual feedback with a clean, modern CLI:
 │  Fresh-squeezed semver for your repo         │
 ╰──────────────────────────────────────────────╯
 
-› Commit message for v1.1.0  (Enter to skip · Esc cancels)
+› Commit message for v1.1.0  (Enter to skip · Esc cancels): Add user authentication
 
 🍋 Bumping minor version...
-📦 Staging all changes...
+📦 Staging changes...
 💾 Creating version commit...
 🏷️  Creating version tag...
 
-✅ VERSION BUMPED!
+========================================
+      ✅ VERSION BUMPED! ✅
+========================================
 
-New Version: v1.1.0
-All changes have been committed
-Git tag has been created
+     New Version: v1.1.0
+
+     Changes have been committed
+     Git tag has been created
+
+----------------------------------------
 
 Next Step:
 git push origin HEAD --tags
 
 🍋 Fresh release squeezed! 🍋
+```
+
+### Quiet Mode (--quiet)
+```
+$ citrusver patch --quiet
+1.0.1
 ```
 
 ## 🔧 Advanced Features
