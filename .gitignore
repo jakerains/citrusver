@@ -78,3 +78,6 @@ tests/
 __tests__/
 *.test.js
 *.spec.js
+
+# CitrusVer state and backups
+.citrusver/
