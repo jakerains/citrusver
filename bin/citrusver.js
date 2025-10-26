@@ -18,6 +18,7 @@ ${colors.brightYellow}Commands:${colors.reset}
   ${colors.green}major${colors.reset}       Increment major version ${colors.gray}(1.0.0 → 2.0.0)${colors.reset}
   ${colors.green}prerelease${colors.reset}  Create prerelease version ${colors.gray}(1.0.0 → 1.0.1-alpha.0)${colors.reset}
   ${colors.green}init${colors.reset}        Initialize CitrusVer config
+  ${colors.green}update${colors.reset}      Check for and install updates
 
 ${colors.brightYellow}Git Options:${colors.reset}
   ${colors.green}--commit${colors.reset}           Create git commit with version changes
@@ -34,6 +35,7 @@ ${colors.brightYellow}Other Options:${colors.reset}
   ${colors.green}--preid <id>${colors.reset}       Prerelease identifier (alpha, beta, rc)
   ${colors.green}--force${colors.reset}            Force operation on protected branches
   ${colors.green}--quiet${colors.reset}            Minimal output
+  ${colors.green}--auto${colors.reset}             Auto-install updates without prompting
 
 ${colors.brightYellow}Examples:${colors.reset}
   ${colors.cyan}citrusver patch${colors.reset}              ${colors.gray}# Bump version only (no git)${colors.reset}
@@ -42,6 +44,7 @@ ${colors.brightYellow}Examples:${colors.reset}
   ${colors.cyan}citrusver patch --push${colors.reset}       ${colors.gray}# Bump + commit + push${colors.reset}
   ${colors.cyan}citrusver minor --full${colors.reset}       ${colors.gray}# Complete workflow${colors.reset}
   ${colors.cyan}citrusver patch --quiet${colors.reset}      ${colors.gray}# Minimal output${colors.reset}
+  ${colors.cyan}citrusver update${colors.reset}             ${colors.gray}# Check for updates${colors.reset}
 
 ${colors.brightYellow}Configuration:${colors.reset}
   Create a ${colors.green}.citrusver.json${colors.reset} file in your project root for custom settings.
@@ -78,7 +81,9 @@ function parseArgs(args) {
     tag: false,
     push: false,
     full: false,
-    quiet: false
+    quiet: false,
+    auto: false,
+    yes: false
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -112,6 +117,10 @@ function parseArgs(args) {
       options.full = true;
     } else if (arg === '--quiet') {
       options.quiet = true;
+    } else if (arg === '--auto') {
+      options.auto = true;
+    } else if (arg === '--yes') {
+      options.yes = true;
     } else if (!arg.startsWith('-') && !options.command) {
       options.command = arg;
     }
@@ -150,11 +159,19 @@ async function main() {
     return;
   }
 
+  // Handle update command separately
+  if (command === 'update') {
+    const UpdateCommand = require('../lib/commands/update');
+    const update = new UpdateCommand();
+    await update.run(options);
+    return;
+  }
+
   // Validate version type
   const validTypes = ['patch', 'minor', 'major', 'prerelease'];
   if (!validTypes.includes(command)) {
     console.error(`❌ Invalid command: ${command}`);
-    console.error(`Valid commands: ${validTypes.join(', ')}, init`);
+    console.error(`Valid commands: ${validTypes.join(', ')}, init, update`);
     process.exit(1);
   }
 
