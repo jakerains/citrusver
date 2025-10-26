@@ -1,6 +1,6 @@
 {
   "name": "citrusver",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Next-generation version management for Node.js - beautiful CLI, automatic changelogs, branch protection, monorepo support, and more. Zero dependencies.",
   "main": "lib/version-bump.js",
   "bin": {
