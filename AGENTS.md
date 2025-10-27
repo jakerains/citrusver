@@ -17,3 +17,4 @@ The history follows Conventional Commits (`feat:`, `fix:`, etc.). Keep subject l
 
 ## Configuration & Release Safety
 Document any `.citrusver.json` additions in your PR and provide sane defaults so the CLI remains zero-config. Double-check branch protection or rollback modules when touching git logic—use dry runs (`node bin/citrusver.js --dry-run`) before tagging. Never commit secrets; mocked registry tokens belong in `.env.example` if needed.
+Keep git tags, `package.json` version, and the published npm dist in lockstep—publish immediately after tagging so npm and GitHub always reflect the same release number.
