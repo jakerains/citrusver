@@ -306,6 +306,8 @@ citrusver init --template conventional
 citrusver init --template monorepo
 ```
 
+Running `citrusver init` also adds the CLI to your project's `devDependencies`, ensuring teammates pick it up on install.
+
 ### Monorepo Support
 Configure for workspaces:
 ```json
