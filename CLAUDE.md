@@ -44,11 +44,15 @@ citrusver patch
 node bin/citrusver.js patch
 node bin/citrusver.js minor
 node bin/citrusver.js major
+node bin/citrusver.js alpha
+node bin/citrusver.js beta
 
 # Test with flags
 node bin/citrusver.js patch --commit      # Version + commit
 node bin/citrusver.js patch --tag         # Version + commit + tag
 node bin/citrusver.js patch --push        # Version + commit + push
+node bin/citrusver.js alpha --commit      # Alpha + commit
+node bin/citrusver.js beta --tag          # Beta + commit + tag
 node bin/citrusver.js patch --full        # Complete workflow
 node bin/citrusver.js patch --quiet       # Minimal output
 node bin/citrusver.js patch --dry-run     # Preview changes
@@ -103,12 +107,21 @@ npm publish
 }
 ```
 
+#### Version Commands (v3.0)
+- **`patch`** - Increment patch version (1.0.0 → 1.0.1)
+- **`minor`** - Increment minor version (1.0.0 → 1.1.0)
+- **`major`** - Increment major version (1.0.0 → 2.0.0)
+- **`alpha`** - Create/increment alpha prerelease (1.0.0 → 1.0.1-alpha.0)
+- **`beta`** - Create/increment beta prerelease (1.0.0 → 1.0.1-beta.0)
+- **`prerelease`** - Create/increment custom prerelease (use with `--preid <id>`)
+
 #### CLI Flags (v3.0)
 - **No flags** - Version bump only (package.json + package-lock.json)
 - **`--commit`** - Version bump + git commit (prompts for message)
 - **`--tag`** - Version bump + commit + annotated tag (implies --commit)
 - **`--push`** - Version bump + commit + push to remote (implies --commit)
 - **`--full`** - Complete workflow with all advanced features
+- **`--preid <id>`** - Prerelease identifier for custom prereleases (alpha, beta, rc, canary, etc.)
 - **`--quiet`** - Minimal output (just version number)
 - **`--dry-run`** - Preview changes without executing
 

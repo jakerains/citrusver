@@ -16,7 +16,9 @@ ${colors.brightYellow}Commands:${colors.reset}
   ${colors.green}patch${colors.reset}       Increment patch version ${colors.gray}(1.0.0 → 1.0.1)${colors.reset}
   ${colors.green}minor${colors.reset}       Increment minor version ${colors.gray}(1.0.0 → 1.1.0)${colors.reset}
   ${colors.green}major${colors.reset}       Increment major version ${colors.gray}(1.0.0 → 2.0.0)${colors.reset}
-  ${colors.green}prerelease${colors.reset}  Create prerelease version ${colors.gray}(1.0.0 → 1.0.1-alpha.0)${colors.reset}
+  ${colors.green}alpha${colors.reset}       Create alpha prerelease ${colors.gray}(1.0.0 → 1.0.1-alpha.0)${colors.reset}
+  ${colors.green}beta${colors.reset}        Create beta prerelease ${colors.gray}(1.0.0 → 1.0.1-beta.0)${colors.reset}
+  ${colors.green}prerelease${colors.reset}  Create prerelease version ${colors.gray}(use with --preid)${colors.reset}
   ${colors.green}init${colors.reset}        Initialize CitrusVer config
   ${colors.green}update${colors.reset}      Check for and install updates
 
@@ -41,9 +43,10 @@ ${colors.brightYellow}Examples:${colors.reset}
   ${colors.cyan}citrusver patch${colors.reset}              ${colors.gray}# Bump version only (no git)${colors.reset}
   ${colors.cyan}citrusver minor --commit${colors.reset}     ${colors.gray}# Bump + create commit${colors.reset}
   ${colors.cyan}citrusver major --tag${colors.reset}        ${colors.gray}# Bump + commit + tag${colors.reset}
+  ${colors.cyan}citrusver alpha${colors.reset}              ${colors.gray}# Create alpha prerelease${colors.reset}
+  ${colors.cyan}citrusver beta --commit${colors.reset}      ${colors.gray}# Create beta + commit${colors.reset}
+  ${colors.cyan}citrusver prerelease --preid rc${colors.reset}  ${colors.gray}# Custom prerelease (rc)${colors.reset}
   ${colors.cyan}citrusver patch --push${colors.reset}       ${colors.gray}# Bump + commit + push${colors.reset}
-  ${colors.cyan}citrusver minor --full${colors.reset}       ${colors.gray}# Complete workflow${colors.reset}
-  ${colors.cyan}citrusver patch --quiet${colors.reset}      ${colors.gray}# Minimal output${colors.reset}
   ${colors.cyan}citrusver update${colors.reset}             ${colors.gray}# Check for updates${colors.reset}
 
 ${colors.brightYellow}Configuration:${colors.reset}
@@ -168,17 +171,27 @@ async function main() {
   }
 
   // Validate version type
-  const validTypes = ['patch', 'minor', 'major', 'prerelease'];
+  const validTypes = ['patch', 'minor', 'major', 'alpha', 'beta', 'prerelease'];
   if (!validTypes.includes(command)) {
     console.error(`❌ Invalid command: ${command}`);
     console.error(`Valid commands: ${validTypes.join(', ')}, init, update`);
     process.exit(1);
   }
 
+  // Map alpha/beta to prerelease with appropriate preid
+  let versionType = command;
+  if (command === 'alpha' && !options.preid) {
+    options.preid = 'alpha';
+    versionType = 'prerelease';
+  } else if (command === 'beta' && !options.preid) {
+    options.preid = 'beta';
+    versionType = 'prerelease';
+  }
+
   // Run version bump
   try {
     const citrusver = new CitrusVer();
-    await citrusver.bump(command, options);
+    await citrusver.bump(versionType, options);
   } catch (error) {
     console.error('❌ CitrusVer failed:', error.message);
     process.exit(1);

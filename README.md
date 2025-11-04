@@ -109,6 +109,10 @@ npx citrusver patch    # 1.0.0 → 1.0.1
 npx citrusver minor    # 1.0.0 → 1.1.0
 npx citrusver major    # 1.0.0 → 2.0.0
 
+# Prerelease versions
+npx citrusver alpha    # 1.0.0 → 1.0.1-alpha.0
+npx citrusver beta     # 1.0.0 → 1.0.1-beta.0
+
 # That's it! Only package.json is updated.
 ```
 
@@ -154,6 +158,15 @@ citrusver minor
 
 # Bump major version (1.0.0 → 2.0.0)
 citrusver major
+
+# Create alpha prerelease (1.0.0 → 1.0.1-alpha.0)
+citrusver alpha
+
+# Create beta prerelease (1.0.0 → 1.0.1-beta.0)
+citrusver beta
+
+# Custom prerelease identifier
+citrusver prerelease --preid rc
 ```
 
 ### How It Works
@@ -289,10 +302,42 @@ Use the enhanced interactive mode:
 ```
 
 ### Prerelease Versions
-Create alpha/beta releases:
+Create alpha, beta, or custom prerelease versions:
+
+**Quick Commands:**
 ```bash
-citrusver prerelease --preid alpha
+# Create alpha version
+citrusver alpha
 # 1.0.0 → 1.0.1-alpha.0
+
+# Create beta version
+citrusver beta
+# 1.0.0 → 1.0.1-beta.0
+
+# Increment existing prerelease
+citrusver alpha
+# 1.0.1-alpha.0 → 1.0.1-alpha.1
+```
+
+**Advanced Usage:**
+```bash
+# Custom prerelease identifier (rc, canary, etc.)
+citrusver prerelease --preid rc
+# 1.0.0 → 1.0.1-rc.0
+
+# Combine with git operations
+citrusver alpha --commit      # Alpha + commit
+citrusver beta --tag          # Beta + commit + tag
+citrusver alpha --push        # Alpha + commit + push
+```
+
+**Version Progression:**
+```
+1.0.0 → citrusver alpha    → 1.0.1-alpha.0
+      → citrusver alpha    → 1.0.1-alpha.1
+      → citrusver beta     → 1.0.1-beta.0
+      → citrusver beta     → 1.0.1-beta.1
+      → citrusver patch    → 1.0.1
 ```
 
 ### Initialize Configuration
