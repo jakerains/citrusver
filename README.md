@@ -1,6 +1,13 @@
-# 🍋 CitrusVer v3.0
+# 🍋 CitrusVer
 
 > Next-generation version management for Node.js with beautiful CLI, comprehensive automation, and zero dependencies.
+
+<p align="center">
+  <a href="https://citrusver.jakerains.com">🌐 Website</a> •
+  <a href="https://citrusver.jakerains.com/#docs">📖 Documentation</a> •
+  <a href="https://www.npmjs.com/package/citrusver">📦 NPM</a> •
+  <a href="https://github.com/jakerains/citrusver/releases">🚀 Releases</a>
+</p>
 
 ## 🎉 What's New in v3.0
 
@@ -44,6 +51,25 @@ Choose your workflow with intuitive flags:
   <em>Transform your release workflow with intelligent version management, automatic changelogs, branch protection, and more!</em>
 </p>
 
+---
+
+**Quick Links:**
+- 🌐 [**Visit the Website**](https://citrusver.jakerains.com) - Interactive docs, live demo, and installation guide
+- 📦 [**NPM Package**](https://www.npmjs.com/package/citrusver) - Install with npm or npx
+- 🚀 [**GitHub Releases**](https://github.com/jakerains/citrusver/releases) - Download compiled binaries
+- 📖 [**Full Documentation**](https://citrusver.jakerains.com/#docs) - Complete usage guide
+
+**Quick Install:**
+```bash
+# Compiled binary (coming soon)
+curl -fsSL https://citrusver.jakerains.com/install.sh | bash
+
+# NPM (available now)
+npx citrusver patch
+```
+
+---
+
 ## ✨ Features
 
 ### Core Features
@@ -71,6 +97,17 @@ Choose your workflow with intuitive flags:
 - 🪝 **Hooks System** - Pre/post version hooks (with git operation flags)
 
 ## 📦 Installation
+
+### Compiled Binary (Recommended)
+**Fast, standalone installation with zero npm overhead:**
+
+```bash
+curl -fsSL https://citrusver.jakerains.com/install.sh | bash
+```
+
+This installs a compiled binary to `/usr/local/bin/citrusver`. No Node.js modules, instant startup!
+
+> **Note**: Binary releases coming soon. Currently falls back to global npm install.
 
 ### Quick Usage (no install needed)
 ```bash
@@ -589,6 +626,21 @@ module.exports = MyPlugin;
 - `changelog-generate` - During changelog generation
 - `version-calculate` - Custom version calculation
 
+## 🌐 Website
+
+Visit **[citrusver.jakerains.com](https://citrusver.jakerains.com)** for:
+- 📖 Complete documentation with interactive examples
+- 🎬 Live terminal demo showing CitrusVer in action
+- 🚀 Quick installation guide
+- 📚 Configuration reference
+- 🔄 v3.0 migration guide
+
+The website is built with Next.js and hosted on Vercel, featuring:
+- Dynamic version display (always shows the latest npm version)
+- Copy-to-clipboard install commands
+- Responsive design for all devices
+- Comprehensive usage guide
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -611,4 +663,9 @@ MIT © Jake Rains
 
 ---
 
-<p align="center">Made with 🍋 by <a href="https://github.com/jakerains">Jake Rains</a></p>
+<p align="center">
+  Made with 🍋 by <a href="https://github.com/jakerains">Jake Rains</a><br>
+  <a href="https://citrusver.jakerains.com">Website</a> •
+  <a href="https://www.npmjs.com/package/citrusver">NPM</a> •
+  <a href="https://github.com/jakerains/citrusver">GitHub</a>
+</p>
