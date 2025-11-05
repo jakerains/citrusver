@@ -1,8 +1,20 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export default function Documentation() {
+  const [currentDomain, setCurrentDomain] = useState('citrusver.jakerains.com')
+
+  useEffect(() => {
+    // Dynamically detect the current domain
+    if (typeof window !== 'undefined') {
+      setCurrentDomain(window.location.host)
+    }
+  }, [])
+
   return (
     <section id="docs" className="py-24 sm:py-32 px-6 lg:px-8 bg-white">
       <div className="mx-auto max-w-7xl">
@@ -35,7 +47,7 @@ export default function Documentation() {
                   <div>
                     <h4 className="font-semibold mb-2">Compiled Binary (Recommended)</h4>
                     <div className="rounded-lg bg-gray-900 p-4 font-mono text-sm text-green-400">
-                      curl -fsSL https://citrusver.jakerains.com/install.sh | bash
+                      curl -fsSL https://{currentDomain}/install.sh | bash
                     </div>
                   </div>
                   <div>

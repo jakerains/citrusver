@@ -1,14 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Check, Copy, Github } from 'lucide-react'
 
 export default function Hero() {
   const [copied, setCopied] = useState(false)
-  const installCommand = 'curl -fsSL https://citrusver.jakerains.com/install.sh | bash'
+  const [currentDomain, setCurrentDomain] = useState('citrusver.jakerains.com')
   const npmCommand = 'npx citrusver patch'
+
+  useEffect(() => {
+    // Dynamically detect the current domain
+    if (typeof window !== 'undefined') {
+      setCurrentDomain(window.location.host)
+    }
+  }, [])
+
+  const installCommand = `curl -fsSL https://${currentDomain}/install.sh | bash`
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
