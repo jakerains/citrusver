@@ -14,7 +14,8 @@
     "prepublishOnly": "echo \"Ready to publish CitrusVer!\"",
     "version:patch": "./bin/citrusver-patch.js",
     "version:minor": "./bin/citrusver-minor.js",
-    "version:major": "./bin/citrusver-major.js"
+    "version:major": "./bin/citrusver-major.js",
+    "build:binaries": "bun scripts/build-binaries.js"
   },
   "keywords": [
     "version",
