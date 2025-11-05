@@ -50,3 +50,8 @@ npm-debug.log*
 # Misc
 tmp/
 temp/
+
+# Website (landing page - not part of npm package)
+website/
+CLAUDE.md
+AGENTS.md

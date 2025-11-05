@@ -81,3 +81,9 @@ __tests__/
 
 # CitrusVer state and backups
 .citrusver/
+
+# Next.js website (landing page)
+website/.next/
+website/out/
+website/.turbo/
+website/.vercel/
