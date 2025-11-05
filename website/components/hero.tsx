@@ -60,7 +60,6 @@ export default function Hero() {
           <div className="text-7xl mb-4 animate-bounce">🍋</div>
           <h1 className="text-6xl font-bold tracking-tight text-gray-900 sm:text-7xl">
             CITRUSVER
-            <span className="ml-4 text-7xl">🍋</span>
           </h1>
         </div>
 
