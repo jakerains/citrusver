@@ -9,9 +9,20 @@
   <a href="https://github.com/jakerains/citrusver/releases">🚀 Releases</a>
 </p>
 
-## 🎉 What's New in v3.0
+## 🎉 What's New in v3.0.6
 
-CitrusVer 3.0 introduces a **fundamental redesign** with a simpler, more predictable default behavior:
+**Latest Release**: v3.0.6 introduces **standalone compiled binaries** - install CitrusVer without Node.js or npm!
+
+### New in v3.0.6
+- 🚀 **Standalone Binaries**: Compiled with Bun for instant startup (macOS & Linux)
+- 📦 **One-Command Install**: `curl -fsSL https://citrusver.jakerains.com/install.sh | bash`
+- 🌐 **Website Launch**: New landing page at [citrusver.jakerains.com](https://citrusver.jakerains.com)
+- 📖 **Dynamic Documentation**: Auto-updating version and domain detection
+- ⚡ **Zero Overhead**: No npm installation or Node.js required for binary install
+
+### v3.0 Core Features
+
+CitrusVer 3.0 introduced a **fundamental redesign** with a simpler, more predictable default behavior:
 
 ### Breaking Changes
 
@@ -61,10 +72,10 @@ Choose your workflow with intuitive flags:
 
 **Quick Install:**
 ```bash
-# Compiled binary (coming soon)
+# Compiled binary (recommended - no Node.js required!)
 curl -fsSL https://citrusver.jakerains.com/install.sh | bash
 
-# NPM (available now)
+# NPM (also available)
 npx citrusver patch
 ```
 
@@ -98,7 +109,7 @@ npx citrusver patch
 
 ## 📦 Installation
 
-### Compiled Binary (Recommended)
+### Compiled Binary (Recommended) ✨ NEW!
 **Fast, standalone installation with zero npm overhead:**
 
 ```bash
@@ -107,7 +118,15 @@ curl -fsSL https://citrusver.jakerains.com/install.sh | bash
 
 This installs a compiled binary to `/usr/local/bin/citrusver`. No Node.js modules, instant startup!
 
-> **Note**: Binary releases coming soon. Currently falls back to global npm install.
+**Available for:**
+- macOS (Apple Silicon & Intel)
+- Linux (x86_64 & ARM64)
+
+**Binary sizes:**
+- macOS arm64: ~57 MB
+- macOS x64: ~63 MB
+- Linux x64: ~99 MB
+- Linux arm64: ~92 MB
 
 ### Quick Usage (no install needed)
 ```bash
