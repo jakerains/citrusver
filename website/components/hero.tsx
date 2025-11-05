@@ -8,6 +8,7 @@ import { Check, Copy, Github } from 'lucide-react'
 export default function Hero() {
   const [copied, setCopied] = useState(false)
   const [currentDomain, setCurrentDomain] = useState('citrusver.jakerains.com')
+  const [version, setVersion] = useState('3.0.6')
   const npmCommand = 'npx citrusver patch'
 
   useEffect(() => {
@@ -15,6 +16,12 @@ export default function Hero() {
     if (typeof window !== 'undefined') {
       setCurrentDomain(window.location.host)
     }
+
+    // Fetch latest version from npm
+    fetch('/api/version')
+      .then(res => res.json())
+      .then(data => setVersion(data.version))
+      .catch(err => console.error('Failed to fetch version:', err))
   }, [])
 
   const installCommand = `curl -fsSL https://${currentDomain}/install.sh | bash`
@@ -44,7 +51,7 @@ export default function Hero() {
         {/* Badge */}
         <div className="mb-8 inline-flex items-center gap-2">
           <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium bg-yellow-100 text-yellow-900 border-yellow-200">
-            v3.0 - Now with zero dependencies
+            v{version} - Now with zero dependencies
           </Badge>
         </div>
 
