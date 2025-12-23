@@ -19,6 +19,7 @@ ${colors.brightYellow}Commands:${colors.reset}
   ${colors.green}alpha${colors.reset}       Create alpha prerelease ${colors.gray}(1.0.0 → 1.0.1-alpha.0)${colors.reset}
   ${colors.green}beta${colors.reset}        Create beta prerelease ${colors.gray}(1.0.0 → 1.0.1-beta.0)${colors.reset}
   ${colors.green}prerelease${colors.reset}  Create prerelease version ${colors.gray}(use with --preid)${colors.reset}
+  ${colors.green}custom${colors.reset}      Set a specific version ${colors.gray}(e.g., citrusver custom 2.5.0)${colors.reset}
   ${colors.green}init${colors.reset}        Initialize CitrusVer config
   ${colors.green}update${colors.reset}      Check for and install updates
 
@@ -35,6 +36,7 @@ ${colors.brightYellow}Other Options:${colors.reset}
   ${colors.green}--no-confirm${colors.reset}       Skip confirmation prompt
   ${colors.green}--changelog${colors.reset}        Generate CHANGELOG.md
   ${colors.green}--preid <id>${colors.reset}       Prerelease identifier (alpha, beta, rc)
+  ${colors.green}--label, -l <name>${colors.reset} Append label to version ${colors.gray}(1.0.1 → 1.0.1-name)${colors.reset}
   ${colors.green}--force${colors.reset}            Force operation on protected branches
   ${colors.green}--quiet${colors.reset}            Minimal output
   ${colors.green}--auto${colors.reset}             Auto-install updates without prompting
@@ -47,6 +49,9 @@ ${colors.brightYellow}Examples:${colors.reset}
   ${colors.cyan}citrusver beta --commit${colors.reset}      ${colors.gray}# Create beta + commit${colors.reset}
   ${colors.cyan}citrusver prerelease --preid rc${colors.reset}  ${colors.gray}# Custom prerelease (rc)${colors.reset}
   ${colors.cyan}citrusver patch --push${colors.reset}       ${colors.gray}# Bump + commit + push${colors.reset}
+  ${colors.cyan}citrusver custom 2.5.0${colors.reset}       ${colors.gray}# Set specific version${colors.reset}
+  ${colors.cyan}citrusver patch --label elf${colors.reset}  ${colors.gray}# Bump patch + label (1.0.1-elf)${colors.reset}
+  ${colors.cyan}citrusver minor -l${colors.reset}           ${colors.gray}# Bump minor + prompt for label${colors.reset}
   ${colors.cyan}citrusver update${colors.reset}             ${colors.gray}# Check for updates${colors.reset}
 
 ${colors.brightYellow}Configuration:${colors.reset}
@@ -76,6 +81,8 @@ function parseArgs(args) {
     noConfirm: false,
     changelog: false,
     preid: null,
+    label: null,
+    customVersion: null,
     force: false,
     template: null,
     stash: false,
@@ -100,6 +107,14 @@ function parseArgs(args) {
       options.changelog = true;
     } else if (arg === '--preid' && args[i + 1]) {
       options.preid = args[++i];
+    } else if (arg === '--label' || arg === '-l') {
+      // Check if next arg exists and is not a flag
+      if (args[i + 1] && !args[i + 1].startsWith('-')) {
+        options.label = args[++i];
+      } else {
+        // Flag present but no value - will prompt later (unless quiet)
+        options.label = true;
+      }
     } else if (arg === '--force') {
       options.force = true;
     } else if (arg === '--template' && args[i + 1]) {
@@ -126,6 +141,10 @@ function parseArgs(args) {
       options.yes = true;
     } else if (!arg.startsWith('-') && !options.command) {
       options.command = arg;
+      // For custom command, capture next arg as customVersion if it exists and isn't a flag
+      if (arg === 'custom' && args[i + 1] && !args[i + 1].startsWith('-')) {
+        options.customVersion = args[++i];
+      }
     }
   }
 
@@ -171,7 +190,7 @@ async function main() {
   }
 
   // Validate version type
-  const validTypes = ['patch', 'minor', 'major', 'alpha', 'beta', 'prerelease'];
+  const validTypes = ['patch', 'minor', 'major', 'alpha', 'beta', 'prerelease', 'custom'];
   if (!validTypes.includes(command)) {
     console.error(`❌ Invalid command: ${command}`);
     console.error(`Valid commands: ${validTypes.join(', ')}, init, update`);
